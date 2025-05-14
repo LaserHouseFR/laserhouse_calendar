@@ -3,7 +3,7 @@ library globals;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-String titre = 'Calendrier LaserHouse';
+String titre = 'Calendrier MonCentreLaser';
 String currentDateInString = DateFormat.yMMMMEEEEd('fr').format(DateTime.now());
 String currentYearInString = DateFormat.y('fr').format(DateTime.now());
 String nextYearInString = (int.parse(DateFormat.y('fr').format(DateTime.now())) + 1).toString();

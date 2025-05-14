@@ -4,7 +4,6 @@ import 'package:laserhouse_calendar/data/globaldatas.dart' as globals;
 import 'package:laserhouse_calendar/styles/buttonstyle.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
-import 'package:screenshot/screenshot.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const <Locale>[
         Locale('fr', 'FR'),
       ],
-      title: 'Calendrier LaserHouse',
+      title: 'Calendrier MonCentreLaser',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: globals.backTitleColor),
         useMaterial3: true,
@@ -38,8 +37,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final ScreenshotController screenshotController = ScreenshotController();
-
   //Functions
 
   //Find date depending of seances
@@ -782,13 +779,13 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Row(
               children: [
-                const Image(
+                /*const Image(
                   image: AssetImage('assets/images/Logo.png'),
                   width: 35,
                 ),
                 const SizedBox(
                   width: 20,
-                ),
+                ), */
                 Text(
                   widget.title,
                   style: const TextStyle(color: Colors.white, fontSize: 20),
@@ -799,27 +796,27 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Screenshot(
-        controller: screenshotController,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const SizedBox(
-              height: 5,
-            ),
-            //First Row (Radio,Seances, Dates, score)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                //Radios
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const SizedBox(
+            height: 5,
+          ),
+          //First Row (Radio,Seances, Dates, score)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              //Radios
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 25, // Fixe la hauteur du Row à 50 pixels
+                    child: Row(
                       children: [
                         Transform.scale(
-                          scale: 0.6,
+                          scale: 0.5,
                           child: Switch(
                             value: globals.isMaillot,
                             activeColor: const Color.fromARGB(255, 40, 49, 92),
@@ -834,13 +831,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             },
                           ),
                         ),
-                        const Text('Maillot / Aisselles', style: TextStyle(fontWeight: FontWeight.bold)),
+                        const Text('Maillot / Aisselles', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                       ],
                     ),
-                    Row(
+                  ),
+                  SizedBox(
+                    height: 25,
+                    child: Row(
                       children: [
                         Transform.scale(
-                          scale: 0.6,
+                          scale: 0.5,
                           child: Switch(
                             value: globals.isJambes,
                             activeColor: const Color.fromARGB(255, 40, 49, 92),
@@ -855,13 +855,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             },
                           ),
                         ),
-                        const Text('Jambes / Autres', style: TextStyle(fontWeight: FontWeight.bold)),
+                        const Text('Jambes / Autres', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                       ],
                     ),
-                    Row(
+                  ),
+                  SizedBox(
+                    height: 25,
+                    child: Row(
                       children: [
                         Transform.scale(
-                          scale: 0.6,
+                          scale: 0.5,
                           child: Switch(
                             value: globals.isSooner,
                             activeColor: const Color.fromARGB(255, 40, 49, 92),
@@ -872,574 +875,475 @@ class _MyHomePageState extends State<MyHomePage> {
                             },
                           ),
                         ),
-                        const Text('Le plus tôt possible', style: TextStyle(fontWeight: FontWeight.bold)),
+                        const Text('Le plus tôt possible', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                       ],
                     ),
-                  ],
-                ),
-                //Séances
-                Row(children: [
-                  Container(
-                      padding: const EdgeInsets.all(20),
-                      foregroundDecoration: BoxDecoration(border: Border.all(color: Colors.white)),
-                      color: globals.backTitleColor,
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Séance 1 -> Séance 2',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          setSpaceBetweenSesssion(globals.seance1, globals.seance2, 1),
-                        ],
-                      )),
-                  const SizedBox(
-                    width: 30,
                   ),
-                  Container(
-                      padding: const EdgeInsets.all(20),
-                      foregroundDecoration: BoxDecoration(border: Border.all(color: Colors.white)),
-                      color: globals.backTitleColor,
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Séance 2 -> Séance 3',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          setSpaceBetweenSesssion(globals.seance2, globals.seance3, 2),
-                        ],
-                      )),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  Container(
-                      padding: const EdgeInsets.all(20),
-                      foregroundDecoration: BoxDecoration(border: Border.all(color: Colors.white)),
-                      color: globals.backTitleColor,
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Séance 3 -> Séance 4',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          setSpaceBetweenSesssion(globals.seance3, globals.seance4, 3),
-                        ],
-                      )),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  Container(
-                      padding: const EdgeInsets.all(20),
-                      foregroundDecoration: BoxDecoration(border: Border.all(color: Colors.white)),
-                      color: globals.backTitleColor,
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Séance 4 -> Séance 5',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          setSpaceBetweenSesssion(globals.seance4, globals.seance5, 4),
-                        ],
-                      )),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(20),
+                ],
+              ),
+
+              //Séances
+              Row(children: [
+                Container(
+                    padding: const EdgeInsets.all(10),
                     foregroundDecoration: BoxDecoration(border: Border.all(color: Colors.white)),
                     color: globals.backTitleColor,
                     child: Column(
                       children: [
                         const Text(
-                          'Séance 5 -> Séance 6',
-                          style: TextStyle(color: Colors.white),
+                          'Séance 1 -> Séance 2',
+                          style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
-                        setSpaceBetweenSesssion(globals.seance5, globals.seance6, 5),
+                        setSpaceBetweenSesssion(globals.seance1, globals.seance2, 1),
                       ],
-                    ),
-                  )
-                ]),
-                //Dates seances
-                /* SizedBox(
-                    width: 320,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.looks_one_rounded,
-                                  color: globals.backTitleColor,
-                                  size: 22,
-                                ),
-                                Text(' ${globals.dateSeance1}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.looks_two_rounded,
-                                  color: globals.backTitleColor,
-                                  size: 22,
-                                ),
-                                Text(' ${globals.dateSeance2}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.looks_3_rounded,
-                                  color: globals.backTitleColor,
-                                  size: 22,
-                                ),
-                                Text(' ${globals.dateSeance3}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.looks_4_rounded,
-                                  color: globals.backTitleColor,
-                                  size: 22,
-                                ),
-                                Text(' ${globals.dateSeance4}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.looks_5_rounded,
-                                  color: globals.backTitleColor,
-                                  size: 22,
-                                ),
-                                Text(' ${globals.dateSeance5}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.looks_6_rounded,
-                                  color: globals.backTitleColor,
-                                  size: 22,
-                                ),
-                                Text(' ${globals.dateSeance6}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  ////Score */
-                Row(children: [
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    )),
+                const SizedBox(
+                  width: 30,
+                ),
+                Container(
+                    padding: const EdgeInsets.all(10),
                     foregroundDecoration: BoxDecoration(border: Border.all(color: Colors.white)),
                     color: globals.backTitleColor,
-                    child: Row(
+                    child: Column(
                       children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            if (globals.startStopButtonText == 'Start') {
-                              setState(() {
-                                globals.startStopButtonText = '........';
-                              });
-                              Future.delayed(const Duration(milliseconds: 100), () {
-                                myCalculation();
-                              });
-                            }
-                          },
-                          child: Text(
-                            globals.startStopButtonText,
-                            style: const TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
+                        const Text(
+                          'Séance 2 -> Séance 3',
+                          style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
-                        const SizedBox(width: 10),
-                        Text(
-                          'Score : ${globals.score.toString().padLeft(3, '0')}',
-                          style: const TextStyle(color: Color.fromARGB(255, 126, 28, 28), fontSize: 15, fontWeight: FontWeight.bold),
-                        ),
+                        setSpaceBetweenSesssion(globals.seance2, globals.seance3, 2),
                       ],
-                    ),
-                  ),
-                ]),
-              ],
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 5),
-                    //Current && next Year Text
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(40, 0, 40, 0),
-                      color: globals.backTitleColor,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${globals.currentYearInString} / ${globals.nextYearInString}',
-                            style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                    )),
+                const SizedBox(
+                  width: 30,
+                ),
+                Container(
+                    padding: const EdgeInsets.all(10),
+                    foregroundDecoration: BoxDecoration(border: Border.all(color: Colors.white)),
+                    color: globals.backTitleColor,
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Séance 3 -> Séance 4',
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        setSpaceBetweenSesssion(globals.seance3, globals.seance4, 3),
+                      ],
+                    )),
+                const SizedBox(
+                  width: 30,
+                ),
+                Container(
+                    padding: const EdgeInsets.all(10),
+                    foregroundDecoration: BoxDecoration(border: Border.all(color: Colors.white)),
+                    color: globals.backTitleColor,
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Séance 4 -> Séance 5',
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        setSpaceBetweenSesssion(globals.seance4, globals.seance5, 4),
+                      ],
+                    )),
+                const SizedBox(
+                  width: 30,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  foregroundDecoration: BoxDecoration(border: Border.all(color: Colors.white)),
+                  color: globals.backTitleColor,
+                  child: Column(
+                    children: [
+                      const Text(
+                        'Séance 5 -> Séance 6',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
                       ),
-                    ),
-                    //Current Year Calendar
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(40, 10, 40, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          for (var month = DateTime.now().month; month <= DateTime.now().month + 12; month++)
-                            Column(
-                              children: [
-                                Container(
-                                  color: globals.backTitleColor,
-                                  child: ConstrainedBox(
-                                    constraints: const BoxConstraints(
-                                      minWidth: 130,
-                                      minHeight: 30,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        globals.monthNames[month - 1],
-                                        style: const TextStyle(color: Colors.white, fontSize: 15),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                for (var day = 1; day <= 31; day++)
-                                  Container(
-                                    padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-                                    width: 130,
-                                    child: day > daysInMonth(DateTime.now().year, month)
-                                        ? const Text('')
-                                        : ElevatedButton(
-                                            style: customButtonStyle(day, month, DateTime.now().year),
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return AlertDialog(
-                                                    backgroundColor: globals.backTitleColor,
-                                                    title: Center(
-                                                      child: Text(
-                                                        popupDate(DateTime.now().year, month, day),
-                                                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-                                                      ),
-                                                    ),
+                      setSpaceBetweenSesssion(globals.seance5, globals.seance6, 5),
+                    ],
+                  ),
+                )
+              ]),
 
-                                                    //PopupContent
-                                                    content: Container(
-                                                      height: 200,
-                                                      width: 600,
-                                                      color: globals.backTitleColor,
-                                                      child: Center(
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            //Vacances 1
-                                                            Column(
-                                                              children: [
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                const Text(
-                                                                  '1ère Vacances',
-                                                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                ElevatedButton(
-                                                                  onPressed: () {
-                                                                    setBeginVacances1(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1);
-                                                                    Navigator.of(context).pop();
-                                                                  },
-                                                                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.yellow)),
-                                                                  child: const Text(
-                                                                    'Début',
-                                                                    style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                  ),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                ElevatedButton(
-                                                                  onPressed: () {
-                                                                    setEndVacances1(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1);
-                                                                    Navigator.of(context).pop();
-                                                                  },
-                                                                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.yellow)),
-                                                                  child: const Text(
-                                                                    'Fin',
-                                                                    style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                  ),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                ElevatedButton(
-                                                                  onPressed: () {
-                                                                    setResetVacances1();
-                                                                    Navigator.of(context).pop();
-                                                                  },
-                                                                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.yellow)),
-                                                                  child: const Text(
-                                                                    'Supprimer',
-                                                                    style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            const SizedBox(width: 40),
-                                                            //Vacances 2
-                                                            Column(
-                                                              children: [
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                const Text(
-                                                                  '2ème Vacances',
-                                                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                ElevatedButton(
-                                                                  onPressed: () {
-                                                                    setBeginVacances2(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1);
-                                                                    Navigator.of(context).pop();
-                                                                  },
-                                                                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 214, 196, 35))),
-                                                                  child: const Text(
-                                                                    'Début',
-                                                                    style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                  ),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                ElevatedButton(
-                                                                  onPressed: () {
-                                                                    setEndVacances2(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1);
-                                                                    Navigator.of(context).pop();
-                                                                  },
-                                                                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 214, 196, 35))),
-                                                                  child: const Text(
-                                                                    'Fin',
-                                                                    style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                  ),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                ElevatedButton(
-                                                                  onPressed: () {
-                                                                    setResetVacances2();
-                                                                    Navigator.of(context).pop();
-                                                                  },
-                                                                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 214, 196, 35))),
-                                                                  child: const Text(
-                                                                    'Supprimer',
-                                                                    style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            const SizedBox(width: 80),
-                                                            //Fixe Séances
-                                                            Column(
-                                                              children: [
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                const Text(
-                                                                  'Séances fixes',
-                                                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                Row(
-                                                                  children: [
-                                                                    Column(
-                                                                      children: [
-                                                                        ElevatedButton(
-                                                                          onPressed: () {
-                                                                            setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 1);
-                                                                            Navigator.of(context).pop();
-                                                                          },
-                                                                          style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
-                                                                          child: const Text(
-                                                                            'Séance 1',
-                                                                            style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          height: 15,
-                                                                        ),
-                                                                        ElevatedButton(
-                                                                          onPressed: () {
-                                                                            setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 2);
-                                                                            Navigator.of(context).pop();
-                                                                          },
-                                                                          style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
-                                                                          child: const Text(
-                                                                            'Séance 2',
-                                                                            style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          height: 15,
-                                                                        ),
-                                                                        ElevatedButton(
-                                                                          onPressed: () {
-                                                                            setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 3);
-                                                                            Navigator.of(context).pop();
-                                                                          },
-                                                                          style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
-                                                                          child: const Text(
-                                                                            'Séance 3',
-                                                                            style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    const SizedBox(width: 20),
-                                                                    Column(
-                                                                      children: [
-                                                                        ElevatedButton(
-                                                                          onPressed: () {
-                                                                            setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 4);
-                                                                            Navigator.of(context).pop();
-                                                                          },
-                                                                          style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
-                                                                          child: const Text(
-                                                                            'Séance 4',
-                                                                            style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          height: 15,
-                                                                        ),
-                                                                        ElevatedButton(
-                                                                          onPressed: () {
-                                                                            setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 5);
-                                                                            Navigator.of(context).pop();
-                                                                          },
-                                                                          style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
-                                                                          child: const Text(
-                                                                            'Séance 5',
-                                                                            style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          height: 15,
-                                                                        ),
-                                                                        ElevatedButton(
-                                                                          onPressed: () {
-                                                                            setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 6);
-                                                                            Navigator.of(context).pop();
-                                                                          },
-                                                                          style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
-                                                                          child: const Text(
-                                                                            'Séance 6',
-                                                                            style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                ElevatedButton(
-                                                                  onPressed: () {
-                                                                    resetFixSeances();
-                                                                    Navigator.of(context).pop();
-                                                                  },
-                                                                  style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
-                                                                  child: const Text(
-                                                                    'Supprimer',
-                                                                    style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    //Action after click fermer
-                                                    actions: [
-                                                      ButtonBar(
-                                                        alignment: MainAxisAlignment.center,
-                                                        children: <Widget>[
-                                                          ElevatedButton(
-                                                            onPressed: () {
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                                                            child: const Text(
-                                                              'Fermer',
-                                                              style: TextStyle(color: Colors.black),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                            },
-                                            //Calendar text Button
-                                            child: Row(
-                                              children: [
-                                                Flexible(
-                                                  flex: 5,
-                                                  child: Center(
-                                                    child: Text(
-                                                      findDayOfWeek(DateTime.now().year, month, day),
-                                                      style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Flexible(flex: 2, child: Center(child: Text('$day', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black)))),
-                                                Flexible(
-                                                  flex: 2,
-                                                  child: Center(
-                                                    child: customIcon(day, month, DateTime.now().year),
-                                                    /*Text(
-                                                        globals.buttonScore[globals.processingDay].toString(),
-                                                        style: const TextStyle(color: Color.fromARGB(255, 103, 15, 119), fontWeight: FontWeight.bold, fontSize: 10),
-                                                      ),*/
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                  ),
-                              ],
-                            ),
-                        ],
+              //Start Bouton
+              Row(children: [
+                Row(
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: globals.backTitleColor,
+                      ),
+                      onPressed: () {
+                        if (globals.startStopButtonText == 'Start') {
+                          setState(() {
+                            globals.startStopButtonText = '........';
+                          });
+                          Future.delayed(const Duration(milliseconds: 100), () {
+                            myCalculation();
+                          });
+                        }
+                      },
+                      child: Text(
+                        globals.startStopButtonText,
+                        style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.normal),
                       ),
                     ),
                   ],
                 ),
+              ]),
+            ],
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal, // Défilement horizontal
+            child: SizedBox(
+              width: 1900,
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(40, 10, 40, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        for (var month = DateTime.now().month; month <= DateTime.now().month + 12; month++)
+                          Column(
+                            children: [
+                              Container(
+                                color: globals.backTitleColor,
+                                child: ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                    minWidth: 130,
+                                    minHeight: 30,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      globals.monthNames[month - 1],
+                                      style: const TextStyle(color: Colors.white, fontSize: 15),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              for (var day = 1; day <= 31; day++)
+                                Container(
+                                  padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+                                  width: 130,
+                                  child: day > daysInMonth(DateTime.now().year, month)
+                                      ? const Text('')
+                                      : ElevatedButton(
+                                          style: customButtonStyle(day, month, DateTime.now().year),
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  backgroundColor: globals.backTitleColor,
+                                                  title: Center(
+                                                    child: Text(
+                                                      popupDate(DateTime.now().year, month, day),
+                                                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                                                    ),
+                                                  ),
+
+                                                  //PopupContent
+                                                  content: Container(
+                                                    height: 200,
+                                                    width: 600,
+                                                    color: globals.backTitleColor,
+                                                    child: Center(
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          //Vacances 1
+                                                          Column(
+                                                            children: [
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              const Text(
+                                                                '1ère Vacances',
+                                                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              ElevatedButton(
+                                                                onPressed: () {
+                                                                  setBeginVacances1(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1);
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.yellow)),
+                                                                child: const Text(
+                                                                  'Début',
+                                                                  style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              ElevatedButton(
+                                                                onPressed: () {
+                                                                  setEndVacances1(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1);
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.yellow)),
+                                                                child: const Text(
+                                                                  'Fin',
+                                                                  style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              ElevatedButton(
+                                                                onPressed: () {
+                                                                  setResetVacances1();
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.yellow)),
+                                                                child: const Text(
+                                                                  'Supprimer',
+                                                                  style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(width: 40),
+                                                          //Vacances 2
+                                                          Column(
+                                                            children: [
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              const Text(
+                                                                '2ème Vacances',
+                                                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              ElevatedButton(
+                                                                onPressed: () {
+                                                                  setBeginVacances2(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1);
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 214, 196, 35))),
+                                                                child: const Text(
+                                                                  'Début',
+                                                                  style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              ElevatedButton(
+                                                                onPressed: () {
+                                                                  setEndVacances2(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1);
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 214, 196, 35))),
+                                                                child: const Text(
+                                                                  'Fin',
+                                                                  style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              ElevatedButton(
+                                                                onPressed: () {
+                                                                  setResetVacances2();
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 214, 196, 35))),
+                                                                child: const Text(
+                                                                  'Supprimer',
+                                                                  style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(width: 80),
+                                                          //Fixe Séances
+                                                          Column(
+                                                            children: [
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              const Text(
+                                                                'Séances fixes',
+                                                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Column(
+                                                                    children: [
+                                                                      ElevatedButton(
+                                                                        onPressed: () {
+                                                                          setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 1);
+                                                                          Navigator.of(context).pop();
+                                                                        },
+                                                                        style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
+                                                                        child: const Text(
+                                                                          'Séance 1',
+                                                                          style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      const SizedBox(
+                                                                        height: 15,
+                                                                      ),
+                                                                      ElevatedButton(
+                                                                        onPressed: () {
+                                                                          setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 2);
+                                                                          Navigator.of(context).pop();
+                                                                        },
+                                                                        style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
+                                                                        child: const Text(
+                                                                          'Séance 2',
+                                                                          style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      const SizedBox(
+                                                                        height: 15,
+                                                                      ),
+                                                                      ElevatedButton(
+                                                                        onPressed: () {
+                                                                          setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 3);
+                                                                          Navigator.of(context).pop();
+                                                                        },
+                                                                        style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
+                                                                        child: const Text(
+                                                                          'Séance 3',
+                                                                          style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  const SizedBox(width: 20),
+                                                                  Column(
+                                                                    children: [
+                                                                      ElevatedButton(
+                                                                        onPressed: () {
+                                                                          setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 4);
+                                                                          Navigator.of(context).pop();
+                                                                        },
+                                                                        style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
+                                                                        child: const Text(
+                                                                          'Séance 4',
+                                                                          style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      const SizedBox(
+                                                                        height: 15,
+                                                                      ),
+                                                                      ElevatedButton(
+                                                                        onPressed: () {
+                                                                          setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 5);
+                                                                          Navigator.of(context).pop();
+                                                                        },
+                                                                        style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
+                                                                        child: const Text(
+                                                                          'Séance 5',
+                                                                          style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      const SizedBox(
+                                                                        height: 15,
+                                                                      ),
+                                                                      ElevatedButton(
+                                                                        onPressed: () {
+                                                                          setFixSeance(DateTime(DateTime.now().year, month, day).difference(globals.startOfYear).inDays + 1, 6);
+                                                                          Navigator.of(context).pop();
+                                                                        },
+                                                                        style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
+                                                                        child: const Text(
+                                                                          'Séance 6',
+                                                                          style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              ElevatedButton(
+                                                                onPressed: () {
+                                                                  resetFixSeances();
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                style: ElevatedButton.styleFrom(minimumSize: const Size(60, 25), backgroundColor: const Color.fromARGB(255, 35, 214, 166)),
+                                                                child: const Text(
+                                                                  'Supprimer',
+                                                                  style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  //Action after click fermer
+                                                  actions: [
+                                                    ButtonBar(
+                                                      alignment: MainAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        ElevatedButton(
+                                                          onPressed: () {
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                                                          child: const Text(
+                                                            'Fermer',
+                                                            style: TextStyle(color: Colors.black),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                          //Calendar text Button
+                                          child: Row(
+                                            children: [
+                                              Flexible(
+                                                flex: 5,
+                                                child: Center(
+                                                  child: Text(
+                                                    findDayOfWeek(DateTime.now().year, month, day),
+                                                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12),
+                                                  ),
+                                                ),
+                                              ),
+                                              Flexible(flex: 2, child: Center(child: Text('$day', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black)))),
+                                              Flexible(
+                                                flex: 2,
+                                                child: Center(
+                                                  child: customIcon(day, month, DateTime.now().year),
+                                                  /*Text(
+                                              globals.buttonScore[globals.processingDay].toString(),
+                                              style: const TextStyle(color: Color.fromARGB(255, 103, 15, 119), fontWeight: FontWeight.bold, fontSize: 10),
+                                            ),*/
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
